@@ -117,3 +117,19 @@ export const monthOptions = months.map((month: string) => {
     value: month,
   };
 });
+
+export const days = [
+  "SATURDAY",
+  "SUNDAY",
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+];
+export const daysOptions = days.map((day: string) => {
+  return {
+    label: day,
+    value: day,
+  };
+});
