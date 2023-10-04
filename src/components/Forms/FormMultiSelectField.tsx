@@ -18,7 +18,7 @@ type SelectFieldProps = {
   defaultValue?: SelectOptions;
 };
 
-const FormSelectField = ({
+const FormMultiSelectField = ({
   name,
   size = "large",
   value,
@@ -43,6 +43,8 @@ const FormSelectField = ({
             value={value}
             style={{ width: "100%" }}
             placeholder={placeholder}
+            allowClear
+            mode="multiple"
           />
         )}
       />
@@ -50,4 +52,4 @@ const FormSelectField = ({
   );
 };
 
-export default FormSelectField;
+export default FormMultiSelectField;

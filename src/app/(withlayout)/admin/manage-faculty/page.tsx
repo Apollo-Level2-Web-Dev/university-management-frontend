@@ -6,18 +6,17 @@ import Link from "next/link";
 import {
   DeleteOutlined,
   EditOutlined,
-  FilterOutlined,
   ReloadOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { useDebounced } from "@/redux/hooks";
 import UMTable from "@/components/ui/UMTable";
-import { useAdminsQuery } from "@/redux/api/adminApi";
 import { IDepartment } from "@/types";
 import dayjs from "dayjs";
+import { useFacultiesQuery } from "@/redux/api/facultyApi";
 
-const AdminPage = () => {
+const FacultyPage = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -39,20 +38,20 @@ const AdminPage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useAdminsQuery({ ...query });
+  const { data, isLoading } = useFacultiesQuery({ ...query });
 
-  const admins = data?.admins;
+  const faculties = data?.faculties;
   const meta = data?.meta;
+  console.log(faculties);
 
   const columns = [
     {
       title: "Id",
-      dataIndex: "id",
+      dataIndex: "facultyId",
       sorter: true,
     },
     {
       title: "Name",
-      dataIndex: "name",
       render: function (data: Record<string, string>) {
         const fullName = `${data?.firstName} ${data?.middleName} ${data?.lastName}`;
         return <>{fullName}</>;
@@ -64,7 +63,7 @@ const AdminPage = () => {
     },
     {
       title: "Department",
-      dataIndex: "managementDepartment",
+      dataIndex: "academicDepartment",
       render: function (data: IDepartment) {
         return <>{data?.title}</>;
       },
@@ -91,12 +90,12 @@ const AdminPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/admin/details/${data.id}`}>
+            <Link href={`/admin/manage-faculty/details/${data.id}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/super_admin/admin/edit/${data.id}`}>
+            <Link href={`/admin/manage-faculty/edit/${data.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -137,12 +136,12 @@ const AdminPage = () => {
       <UMBreadCrumb
         items={[
           {
-            label: "super_admin",
-            link: "/super_admin",
+            label: "admin",
+            link: "/admin",
           },
         ]}
       />
-      <ActionBar title="Admin List">
+      <ActionBar title="Faculty List">
         <Input
           size="large"
           placeholder="Search"
@@ -152,8 +151,8 @@ const AdminPage = () => {
           }}
         />
         <div>
-          <Link href="/super_admin/admin/create">
-            <Button type="primary">Create Admin</Button>
+          <Link href="/admin/manage-faculty/create">
+            <Button type="primary">Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -170,7 +169,7 @@ const AdminPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={admins}
+        dataSource={faculties}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -182,4 +181,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default FacultyPage;

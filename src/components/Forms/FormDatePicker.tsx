@@ -20,7 +20,7 @@ const FormDatePicker = ({
 
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     onChange ? onChange(date, dateString) : null;
-    setValue(name, dateString);
+    setValue(name, date);
   };
 
   return (
@@ -32,7 +32,7 @@ const FormDatePicker = ({
         control={control}
         render={({ field }) => (
           <DatePicker
-            defaultValue={dayjs(field.value) || ""}
+            defaultValue={dayjs(field.value) || Date.now()}
             size={size}
             onChange={handleOnChange}
             style={{ width: "100%" }}

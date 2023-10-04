@@ -9,6 +9,9 @@ import {
   facultyOptions,
   genderOptions,
 } from "@/constants/global";
+import ACDepartmentField from "../Forms/ACDepartmentField";
+import ACFacultyField from "../Forms/ACFacultyField";
+import ACSemesterField from "../Forms/ACSemesterField";
 
 const StudentInfo = () => {
   return (
@@ -85,12 +88,9 @@ const StudentInfo = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
-            size="large"
+          <ACDepartmentField
             name="student.academicDepartment"
-            options={acDepartmentOptions}
             label="Academic Department"
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -100,12 +100,9 @@ const StudentInfo = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
-            size="large"
+          <ACFacultyField
             name="student.academicFaculty"
-            options={facultyOptions}
             label="Academic Faculty"
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -115,12 +112,9 @@ const StudentInfo = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
-            size="large"
+          <ACSemesterField
             name="student.academicSemester"
-            options={acSemesterOptions}
             label="Academic Semester"
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -145,7 +139,7 @@ const StudentInfo = () => {
             marginBottom: "10px",
           }}
         >
-          <UploadImage />
+          <UploadImage name="file" />
         </Col>
       </Row>
     </div>
