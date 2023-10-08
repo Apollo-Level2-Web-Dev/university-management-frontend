@@ -51,6 +51,57 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.semesterRegistration],
     }),
+    myRegistration: build.query({
+      query: () => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/my-registration`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.courseRegistration],
+    }),
+    startRegistration: build.mutation({
+      query: () => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/start-registration`,
+        method: "POST",
+      }),
+    }),
+    mySemesterRegistrationCourses: build.query({
+      query: () => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/my-semester-registration-courses
+				`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.courseRegistration],
+    }),
+    enrollIntoCourse: build.mutation({
+      query: (data) => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/enroll-into-course`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+    withdrawFromCourse: build.mutation({
+      query: (data) => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/withdraw-from-course`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+    confirmMyRegistration: build.mutation({
+      query: () => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/confirm-registration`,
+        method: "POST",
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+    startNewSemester: build.mutation({
+      query: (id) => ({
+        url: `${BASE_SEMESTER_REGISTRATION}/${id}/start-new-semester`,
+        method: "POST",
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
   }),
 });
 
@@ -60,6 +111,14 @@ export const {
   useAddSemesterRegistrationsMutation,
   useDeleteSemesterRegistrationsMutation,
   useUpdateSemesterRegistrationsMutation,
+
+  useMyRegistrationQuery,
+  useStartRegistrationMutation,
+  useMySemesterRegistrationCoursesQuery,
+  useEnrollIntoCourseMutation,
+  useConfirmMyRegistrationMutation,
+  useWithdrawFromCourseMutation,
+  useStartNewSemesterMutation,
 } = semesterRegistrationApi;
 
 export default semesterRegistrationApi;

@@ -284,3 +284,28 @@ export interface ICoreFaculty {
   academicFaculty: IAcademicCoreFaculty;
   academicDepartment: IAcademicCoreDepartment;
 }
+
+export interface IMyCourse {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  studentId: string;
+  courseId: string;
+  academicSemesterId: string;
+  grade?: null;
+  point: number;
+  totalMarks: number;
+  status: string;
+  course: ICourse;
+}
+
+export interface IFacultyCourse {
+  course: ICourse;
+  sections?: SectionsEntity[] | null;
+}
+
+export interface SectionsEntity {
+  section: IOfferedCourseSection;
+  classSchedules?: IOfferedCourseSchedule[] | null;
+}

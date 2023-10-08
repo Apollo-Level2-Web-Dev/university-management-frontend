@@ -3,11 +3,12 @@ import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
 
-import { Button, Input, message } from "antd";
+import { Button, Input, Tooltip, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import ActionBar from "@/components/ui/ActionBar";
@@ -16,6 +17,7 @@ import dayjs from "dayjs";
 import {
   useDeleteSemesterRegistrationsMutation,
   useSemesterRegistrationsQuery,
+  useStartNewSemesterMutation,
 } from "@/redux/api/semesterRegistrationApi";
 
 const SemesterRegistrationPage = () => {
@@ -28,6 +30,8 @@ const SemesterRegistrationPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [deleteSemesterRegistrations] =
     useDeleteSemesterRegistrationsMutation();
+
+  const [startNewSemester] = useStartNewSemesterMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -47,6 +51,16 @@ const SemesterRegistrationPage = () => {
 
   const semesterRegistrations = data?.semesterRegistrations;
   const meta = data?.meta;
+  // console.log(semesterRegistrations);
+
+  const handleStartSemester = async (id: string) => {
+    try {
+      const res = await startNewSemester(id).unwrap();
+      message.success(res);
+    } catch (err: any) {
+      message.error(err?.message);
+    }
+  };
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
@@ -110,12 +124,24 @@ const SemesterRegistrationPage = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />
               </Button>
             </Link>
+            {data?.status === "ENDED" && (
+              <Tooltip title="Start Semester" placement="bottom">
+                <Button
+                  type="primary"
+                  onClick={() => handleStartSemester(data?.id)}
+                  style={{
+                    margin: "0px 5px",
+                  }}
+                >
+                  <PlayCircleOutlined />
+                </Button>
+              </Tooltip>
+            )}
             <Button
               onClick={() => deleteHandler(data?.id)}
               type="primary"
