@@ -309,3 +309,57 @@ export interface SectionsEntity {
   section: IOfferedCourseSection;
   classSchedules?: IOfferedCourseSchedule[] | null;
 }
+
+export interface IStudentEnrolledCourseMark {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  studentId: string;
+  studentEnrolledCourseId: string;
+  academicSemesterId: string;
+  grade?: null;
+  marks: number;
+  examType: string;
+  academicSemester: IAcademicCoreSemester;
+  student: ICoreStudent;
+  studentEnrolledCourse: IStudentEnrolledCourse;
+}
+export interface ICoreStudent {
+  id: string;
+  studentId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  profileImage: string;
+  email: string;
+  contactNo: string;
+  gender: string;
+  bloodGroup: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  academicSemesterId: string;
+  academicDepartmentId: string;
+  academicFacultyId: string;
+  academicFaculty: IAcademicCoreFaculty;
+  academicDepartment: IAcademicCoreDepartment;
+  academicSemester: IAcademicCoreSemester;
+}
+
+export interface IStudentEnrolledCourse {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  studentId: string;
+  courseId: string;
+  academicSemesterId: string;
+  grade?: null;
+  point: number;
+  totalMarks: number;
+  status: string;
+  academicSemester: IAcademicCoreSemester;
+  student: ICoreStudent;
+  course: ICourse;
+}

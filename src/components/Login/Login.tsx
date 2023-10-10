@@ -1,5 +1,5 @@
 "use client";
-import { Button, Col, Row, message } from "antd";
+import { Button, Col, Input, Row, message } from "antd";
 import loginImage from "../../assets/login-image.png";
 import Image from "next/image";
 import Form from "@/components/Forms/Form";
@@ -8,6 +8,8 @@ import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/schemas/login";
 
 type FormValues = {
   id: string;
@@ -55,9 +57,15 @@ const LoginPage = () => {
           First login your account
         </h1>
         <div>
-          <Form submitHandler={onSubmit}>
+          <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
             <div>
-              <FormInput name="id" type="text" size="large" label="User Id" />
+              <FormInput
+                name="id"
+                type="text"
+                size="large"
+                label="User Id"
+                required
+              />
             </div>
             <div
               style={{
@@ -69,6 +77,7 @@ const LoginPage = () => {
                 type="password"
                 size="large"
                 label="User Password"
+                required
               />
             </div>
             <Button type="primary" htmlType="submit">
