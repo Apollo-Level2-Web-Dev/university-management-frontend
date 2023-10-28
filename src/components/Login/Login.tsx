@@ -10,6 +10,7 @@ import { storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas/login";
+import Link from "next/link";
 
 type FormValues = {
   id: string;
@@ -79,6 +80,17 @@ const LoginPage = () => {
                 label="User Password"
                 required
               />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: "5px 0px",
+              }}
+            >
+              <div style={{ marginLeft: "auto" }}>
+                <Link href="/forgot-password">forgot password?</Link>
+              </div>
             </div>
             <Button type="primary" htmlType="submit">
               Login

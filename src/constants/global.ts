@@ -140,3 +140,15 @@ export enum ExamType {
   FINAL = "FINAL",
   MIDTERM = "MIDTERM",
 }
+
+export enum PaymentType {
+  PARTIAL = "PARTIAL",
+  FULL = "FULL",
+}
+
+export enum PaymentStatus {
+  PENDING = "PENDING",
+  PAID = "PAID",
+  PARTIAL_PAID = "PARTIAL_PAID",
+  FULL_PAID = "FULL_PAID",
+}
